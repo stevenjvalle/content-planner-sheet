@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      input, select, textarea {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 6px;
+        font-size: 14px;
+      }
+      button {
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="proposal-form">
+      <label>Date:</label>
+      <input type="date" name="date" required>
+
+      <label>Time:</label>
+      <input type="time" name="time" required>
+
+      <label>Title:</label>
+      <input type="text" name="title" required>
+
+      <label>Team:</label>
+      <select name="team" required>
+        <option value="">-- Select --</option>
+        <option value="Digital Media">Digital Media</option>
+        <option value="Marketing">Marketing</option>
+      </select>
+
+      <label>Platform:</label>
+      <select name="platform" required>
+        <option value="">-- Select --</option>
+        <option value="Instagram">Instagram</option>
+        <option value="LinkedIn">LinkedIn</option>
+        <option value="YouTube">YouTube</option>
+        <option value="Facebook">Facebook</option>
+        <option value="Email">Email</option>
+      </select>
+
+      <label>Description:</label>
+      <textarea name="description" rows="4"></textarea>
+
+      <button type="submit">Submit Proposal</button>
+    </form>
+
+    <script>
+      document.getElementById('proposal-form').addEventListener('submit', e => {
+        e.preventDefault();
+        const formData = Object.fromEntries(new FormData(e.target).entries());
+        google.script.run.withSuccessHandler(() => {
+          google.script.host.close();
+        }).submitProposal(formData);
+      });
+    </script>
+  </body>
+</html>
